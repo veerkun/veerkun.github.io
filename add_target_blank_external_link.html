@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>Auto add target blank external link via javascript</title>
+</head>
+
+
+<body>
+<p>
+If link href is internal, do not anything.<br>
+If link href is external, add target="_blank" and rel="nofollow".
+</p>
+<div><a href="http://mydomain1.com/aaa/aaa.html">http://mydomain1.com/aaa/aaa.html (internal)</a></div>
+<div><a href="http://mydomain2.com/aaa/aaa.html">http://mydomain2.com/aaa/aaa.html (internal)</a></div>
+<div><a href="http://mydomain3.com/aaa/aaa.html">http://mydomain3.com/aaa/aaa.html (external)</a></div>
+<div><a href="http://mydomain4.com/aaa/aaa.html">http://mydomain4.com/aaa/aaa.html (external)</a></div>
+
+<script>
+function changetargetlink(x){
+	var a = document.getElementsByTagName('a');
+    var list_my_domain = changetargetlink.arguments;
+	for(var i = 0; i < a.length; i++){
+        var link_href = a[i].href;
+        var external = true;
+       for(var j = 0; j < list_my_domain.length; j++){
+           var my_domain = list_my_domain[j];
+           if(link_href.search(my_domain) != -1){
+               external = false;
+			} 
+        }
+        if (external) {
+          a[i].target = "_blank";
+		  a[i].rel = "nofollow";
+		  a[i].href = "http://blankrefer.com/?" + a[i].href;
+          //alert('external');
+		} else {
+             // alert('internal');
+            //no thing
+         }
+        
+	}
+}
+changetargetlink('mydomain1.com', 'mydomain2.com');
+</script>
+</body>
+</html>
